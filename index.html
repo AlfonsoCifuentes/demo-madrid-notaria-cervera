@@ -1,702 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notaría Rafael Cervera — San Fernando de Henares</title>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --blue: #1E3A5F;
-      --blue-dark: #142A48;
-      --blue-deep: #0D1E33;
-      --teal: #4A90A4;
-      --teal-light: #6AAFC2;
-      --white: #FFFFFF;
-      --off-white: #F7FBFC;
-      --text-muted: #7A9AB0;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--off-white);
-      color: var(--blue-deep);
-      line-height: 1.65;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: var(--blue-deep);
-      padding: 0.9rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-brand { display: flex; align-items: center; gap: 0.8rem; }
-    .nav-brand-icon { width: 28px; height: 28px; color: var(--teal); }
-    .nav-brand-text {
-      font-family: 'Source Serif 4', serif;
-      color: var(--white);
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-    .nav-links {
-      display: flex; gap: 2rem; list-style: none;
-    }
-    .nav-links a {
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.25s;
-    }
-    .nav-links a:hover { color: var(--teal); }
-    .nav-tel-btn {
-      background: var(--teal) !important;
-      color: var(--white) !important;
-      padding: 0.5rem 1.2rem;
-      border-radius: 2px;
-      font-weight: 600 !important;
-      text-transform: none !important;
-      letter-spacing: 0 !important;
-    }
-    .nav-tel-btn:hover { background: var(--teal-light) !important; }
-    .nav-hamburger {
-      display: none; flex-direction: column; gap: 5px; cursor: pointer;
-    }
-    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--teal); border-radius: 2px; }
-
-    /* HERO — SVG SELLO + FONDO SÓLIDO */
-    .hero {
-      min-height: 100vh;
-      background: var(--blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5rem 2rem 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-    /* Fondo sólido con sutil gradiente tonal */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, var(--blue-dark) 0%, var(--blue) 50%, #1A3456 100%);
-    }
-    /* Patrón de puntos sutil */
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(74,144,164,0.08) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-    }
-
-    .hero-layout {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      max-width: 1100px;
-      width: 100%;
-      align-items: center;
-    }
-
-    /* TEXTO HERO */
-    .hero-text .hero-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .hero-text .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--teal);
-    }
-    .hero-title {
-      font-family: 'Source Serif 4', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      color: var(--white);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 1.2rem;
-    }
-    .hero-title .name-line {
-      color: var(--teal);
-      font-weight: 300;
-      font-style: italic;
-    }
-    .hero-desc {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.6);
-      font-weight: 300;
-      line-height: 1.75;
-      margin-bottom: 2.5rem;
-      max-width: 400px;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .btn-teal {
-      background: var(--teal);
-      color: var(--white);
-      padding: 0.85rem 2rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.25s, transform 0.2s;
-    }
-    .btn-teal:hover { background: var(--teal-light); transform: translateY(-2px); }
-    .btn-ghost {
-      background: transparent;
-      color: rgba(255,255,255,0.7);
-      padding: 0.85rem 2rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      border: 1px solid rgba(255,255,255,0.2);
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: border-color 0.25s, color 0.25s;
-    }
-    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
-
-    /* SVG DECORATIVO — SELLO / PLUMA */
-    .hero-visual {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-photo-card {
-      position: relative;
-      width: min(100%, 420px);
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      border-radius: 30px;
-      border: 1px solid rgba(74,144,164,0.18);
-      background: rgba(255,255,255,0.04);
-      box-shadow: 0 26px 72px rgba(7, 15, 28, 0.34);
-    }
-
-    .hero-photo-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(13,30,51,0.04) 0%, rgba(13,30,51,0.14) 40%, rgba(13,30,51,0.76) 100%);
-    }
-
-    .hero-photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-
-    .hero-photo-note {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 24px;
-      z-index: 1;
-      padding: 1.05rem 1.15rem;
-      border-radius: 20px;
-      background: rgba(9,24,42,0.66);
-      border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(12px);
-    }
-
-    .hero-photo-note strong {
-      display: block;
-      font-family: 'Source Serif 4', serif;
-      font-size: 1.05rem;
-      color: var(--white);
-      margin-bottom: 0.45rem;
-      line-height: 1.32;
-    }
-
-    .hero-photo-note span {
-      display: block;
-      color: rgba(255,255,255,0.76);
-      font-size: 0.88rem;
-      line-height: 1.6;
-    }
-    .seal-container {
-      position: relative;
-      width: 320px;
-      height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    /* Anillos del sello */
-    .seal-ring-outer {
-      position: absolute;
-      inset: 0;
-      border: 2px solid rgba(74,144,164,0.25);
-      border-radius: 50%;
-      animation: rotateSlow 30s linear infinite;
-    }
-    .seal-ring-outer::before {
-      content: '';
-      position: absolute;
-      top: 10px; right: 10px;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--teal);
-      opacity: 0.4;
-    }
-    .seal-ring-mid {
-      position: absolute;
-      inset: 20px;
-      border: 1px solid rgba(74,144,164,0.2);
-      border-radius: 50%;
-      border-style: dashed;
-    }
-    .seal-ring-inner {
-      position: absolute;
-      inset: 40px;
-      border: 2px solid rgba(74,144,164,0.3);
-      border-radius: 50%;
-    }
-    @keyframes rotateSlow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    /* SVG central del sello con pluma */
-    .seal-svg-center {
-      position: relative;
-      z-index: 1;
-      color: var(--teal);
-      opacity: 0.85;
-    }
-    /* Texto circular del sello */
-    .seal-text-ring {
-      position: absolute;
-      inset: 28px;
-      pointer-events: none;
-    }
-
-    /* SERVICIOS */
-    .section { padding: 5rem 2rem; }
-    .section-inner { max-width: 1050px; margin: 0 auto; }
-    .section-label {
-      font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--teal); display: block; margin-bottom: 0.6rem; font-weight: 600;
-    }
-    .section-title {
-      font-family: 'Source Serif 4', serif;
-      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
-      color: var(--blue);
-      font-weight: 700;
-      margin-bottom: 2.5rem;
-      line-height: 1.2;
-    }
-
-    .services-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1rem;
-    }
-    .service-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1.2rem;
-      padding: 1.5rem;
-      background: var(--white);
-      border-left: 3px solid transparent;
-      transition: border-color 0.25s, box-shadow 0.25s;
-    }
-    .service-item:hover {
-      border-left-color: var(--teal);
-      box-shadow: 0 4px 20px rgba(30,58,95,0.08);
-    }
-    .service-item-icon {
-      width: 32px; height: 32px; color: var(--teal); flex-shrink: 0; margin-top: 2px;
-    }
-    .service-item-name {
-      font-family: 'Source Serif 4', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--blue);
-      margin-bottom: 0.35rem;
-    }
-    .service-item-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.55; }
-
-    /* ABOUT */
-    .about-section {
-      background: var(--blue-deep);
-      padding: 5rem 2rem;
-    }
-    .about-inner {
-      max-width: 1050px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-    .about-text .section-label { color: var(--teal); }
-    .about-text .section-title { color: var(--white); margin-bottom: 1.2rem; }
-    .about-text p {
-      color: rgba(255,255,255,0.6);
-      font-size: 0.9rem;
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    .about-info-boxes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: rgba(74,144,164,0.15);
-    }
-    .info-box {
-      background: rgba(255,255,255,0.03);
-      padding: 1.8rem 1.5rem;
-      text-align: center;
-    }
-    .info-box-num {
-      font-family: 'Source Serif 4', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--teal);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-    .info-box-lbl {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.4);
-    }
-
-    /* CONTACTO */
-    .contact-section {
-      padding: 5rem 2rem;
-      background: var(--off-white);
-    }
-    .contact-inner { max-width: 900px; margin: 0 auto; }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 3rem;
-      margin-top: 3rem;
-    }
-    .contact-info h3 {
-      font-family: 'Source Serif 4', serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: var(--blue);
-    }
-    .contact-item { display: flex; align-items: flex-start; gap: 0.9rem; margin-bottom: 1.1rem; }
-    .contact-item-icon { width: 18px; height: 18px; color: var(--teal); flex-shrink: 0; margin-top: 3px; }
-    .contact-item-text strong {
-      display: block; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-muted); margin-bottom: 0.15rem; font-weight: 600;
-    }
-    .contact-item-text span { font-size: 0.88rem; color: var(--blue-deep); }
-    .contact-item-text a { color: var(--blue); text-decoration: none; }
-    .contact-item-text a:hover { color: var(--teal); }
-    .contact-form { display: flex; flex-direction: column; gap: 0.8rem; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      padding: 0.7rem 1rem;
-      border: 1px solid rgba(30,58,95,0.15);
-      background: var(--white);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.88rem;
-      color: var(--blue-deep);
-      outline: none;
-      transition: border-color 0.25s;
-      appearance: none;
-    }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--teal); }
-    .form-group textarea { min-height: 90px; resize: vertical; }
-    .form-submit {
-      background: var(--blue);
-      color: var(--white);
-      padding: 0.85rem;
-      border: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.25s;
-    }
-    .form-submit:hover { background: var(--teal); }
-
-    /* FOOTER */
-    footer {
-      background: var(--blue-deep);
-      color: rgba(255,255,255,0.35);
-      text-align: center;
-      padding: 1.8rem 2rem;
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
-    }
-    footer span { color: var(--teal); }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      .hero-layout { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; }
-      .hero-visual { order: -1; display: flex; }
-      .hero-photo-card { width: 100%; max-width: 100%; aspect-ratio: 5 / 4; }
-      .hero-text .hero-eyebrow { justify-content: center; }
-      .hero-desc { margin: 0 auto 2rem; }
-      .hero-actions { justify-content: center; }
-      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .contact-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 480px) {
-      .services-list { grid-template-columns: 1fr; }
-      .about-info-boxes { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notaría Rafael Cervera | San Fernando de Henares</title>
+  <meta name="description" content="Notaría Rafael Cervera en San Fernando de Henares para escrituras, herencias, poderes y actas con una atención notarial técnica, clara y muy ordenada." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=Source+Serif+4:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-brand">
-    <!-- Icono pluma SVG -->
-    <svg class="nav-brand-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20 4 C24 8 24 16 14 20 L8 24 L6 22 L10 16 C4 16 4 8 8 4 C12 0 18 2 20 4Z"/>
-      <path d="M10 16 L14 12"/>
-      <path d="M6 22 L4 24"/>
-    </svg>
-    <span class="nav-brand-text">Notaría Rafael Cervera</span>
-  </div>
-  <ul class="nav-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#nosotros">La Notaría</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-    <li><a href="tel:916740908" class="nav-tel-btn">916 74 09 08</a></li>
-  </ul>
-  <div class="nav-hamburger"><span></span><span></span><span></span></div>
-</nav>
+  <header class="site-header">
+    <a class="brand" href="#inicio">
+      <strong>Notaría Rafael Cervera</strong>
+      <span>San Fernando de Henares</span>
+    </a>
+    <nav class="site-nav" aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#oficina">Oficina</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="header-call" href="tel:+34916740908">916 74 09 08</a>
+  </header>
 
-<!-- HERO -->
-<section class="hero" id="inicio">
-  <div class="hero-layout">
-    <div class="hero-text">
-      <div class="hero-eyebrow">San Fernando de Henares · Madrid</div>
-      <h1 class="hero-title">
-        Notaría<br>
-        <span class="name-line">Rafael Cervera</span><br>
-        García
-      </h1>
-      <p class="hero-desc">
-        Fe pública notarial al servicio de particulares y empresas. Asesoramiento jurídico de confianza en San Fernando de Henares y el Corredor del Henares.
-      </p>
-      <div class="hero-actions">
-        <a href="tel:916740908" class="btn-teal">Llamar: 916 74 09 08</a>
-        <a href="#servicios" class="btn-ghost">Ver servicios</a>
-      </div>
-    </div>
-    <!-- SVG decorativo: sello notarial con pluma estilizada -->
-    <div class="hero-visual">
-      <div class="hero-photo-card">
-        <img src="./hero-photo.jpg" alt="Sala de reuniones notarial con atmósfera sobria y profesional" loading="eager" />
-        <div class="hero-photo-note">
-          <strong>Una presencia visual más humana y más institucional a la vez.</strong>
-          <span>El hero gana una fotografía creíble de entorno profesional sin perder el tono sobrio de la notaría.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICIOS -->
-<section class="section" id="servicios">
-  <div class="section-inner">
-    <span class="section-label">Servicios Notariales</span>
-    <h2 class="section-title">Gestiones que podemos tramitar</h2>
-    <div class="services-list">
-      <div class="service-item">
-        <svg class="service-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9,22 9,12 15,12 15,22"/>
-        </svg>
-        <div>
-          <div class="service-item-name">Compraventa Inmobiliaria</div>
-          <p class="service-item-desc">Escrituras de pisos, casas, locales y terrenos en el Corredor del Henares.</p>
-        </div>
-      </div>
-      <div class="service-item">
-        <svg class="service-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14,2 14,8 20,8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/>
-          <line x1="16" y1="17" x2="8" y2="17"/>
-        </svg>
-        <div>
-          <div class="service-item-name">Testamentos y Herencias</div>
-          <p class="service-item-desc">Otorgamiento de testamentos, declaraciones de herederos y particiones hereditarias.</p>
-        </div>
-      </div>
-      <div class="service-item">
-        <svg class="service-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-        </svg>
-        <div>
-          <div class="service-item-name">Constitución de Empresas</div>
-          <p class="service-item-desc">SL, SA, comunidades de bienes y otras formas societarias con total seguridad jurídica.</p>
-        </div>
-      </div>
-      <div class="service-item">
-        <svg class="service-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-          <circle cx="9" cy="7" r="4"/>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-        </svg>
-        <div>
-          <div class="service-item-name">Poderes y Representación</div>
-          <p class="service-item-desc">Poderes generales y especiales para administración, pleitos y disposición de bienes.</p>
-        </div>
-      </div>
-      <div class="service-item">
-        <svg class="service-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 8v4l3 3"/>
-        </svg>
-        <div>
-          <div class="service-item-name">Actas y Certificaciones</div>
-          <p class="service-item-desc">Actas notariales de presencia, notoriedad y protocolización de documentos privados.</p>
-        </div>
-      </div>
-      <div class="service-item">
-        <svg class="service-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-        <div>
-          <div class="service-item-name">Derecho de Familia</div>
-          <p class="service-item-desc">Capitulaciones matrimoniales, donaciones y acuerdos de separación de bienes.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about-section" id="nosotros">
-  <div class="about-inner">
-    <div class="about-text">
-      <span class="section-label">Quiénes somos</span>
-      <h2 class="section-title">Notaria con presencia local en San Fernando</h2>
-      <p>La Notaría Rafael Cervera lleva años siendo un punto de referencia para los vecinos y empresas de San Fernando de Henares y los municipios del entorno del Corredor del Henares.</p>
-      <p>A diferencia de grandes despachos anónimos, aquí encontrará atención cercana, explicaciones claras y un equipo que conoce el tejido empresarial y residencial local.</p>
-      <p>Actualmente disponible a través del subdominio del Colegio Notarial — en breve con presencia digital propia para facilitarle el contacto directo.</p>
-    </div>
-    <div class="about-info-boxes">
-      <div class="info-box">
-        <div class="info-box-num">+20</div>
-        <div class="info-box-lbl">Años de trayectoria</div>
-      </div>
-      <div class="info-box">
-        <div class="info-box-num">6</div>
-        <div class="info-box-lbl">Especialidades</div>
-      </div>
-      <div class="info-box">
-        <div class="info-box-num">100%</div>
-        <div class="info-box-lbl">Garantía jurídica</div>
-      </div>
-      <div class="info-box">
-        <div class="info-box-num">Local</div>
-        <div class="info-box-lbl">Conocimiento del área</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACTO -->
-<section class="contact-section" id="contacto">
-  <div class="contact-inner">
-    <span class="section-label">Contacto</span>
-    <h2 class="section-title">Hable con nosotros</h2>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <h3>Localización</h3>
-        <div class="contact-item">
-          <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <div class="contact-item-text">
-            <strong>Municipio</strong>
-            <span>San Fernando de Henares<br>Madrid</span>
+  <main id="contenido">
+    <section class="hero" id="inicio">
+      <div class="hero-image"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <p class="eyebrow">San Fernando de Henares</p>
+          <h1>Una notaría técnica, clara y muy bien organizada para el día a día documental.</h1>
+          <p>La Notaría Rafael Cervera trabaja escrituras, herencias, poderes y actas con una estructura precisa: menos ruido ceremonial y más control real del trámite.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="tel:+34916740908">Llamar a la notaría</a>
+            <a class="button button-secondary" href="#servicios">Ver servicios</a>
           </div>
         </div>
-        <div class="contact-item">
-          <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.49 5.49l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.48z"/></svg>
-          <div class="contact-item-text">
-            <strong>Teléfono directo</strong>
-            <span><a href="tel:916740908">916 74 09 08</a></span>
-          </div>
-        </div>
-        <div class="contact-item">
-          <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div class="contact-item-text">
-            <strong>Horario de atención</strong>
-            <span>Lunes – Viernes: 9:00 – 14:00 · 16:00 – 18:30</span>
-          </div>
-        </div>
+
+        <aside class="hero-card">
+          <span>Contacto</span>
+          <strong>916 74 09 08</strong>
+          <p>Atención notarial en San Fernando de Henares para particulares y empresas con seguimiento claro del expediente.</p>
+        </aside>
       </div>
-      <form class="contact-form" onsubmit="return false;">
-        <div class="form-group"><input type="text" placeholder="Nombre" autocomplete="name"></div>
-        <div class="form-group"><input type="tel" placeholder="Teléfono" autocomplete="tel"></div>
-        <div class="form-group">
-          <select>
-            <option value="" disabled selected>Tipo de gestión</option>
-            <option>Compraventa inmobiliaria</option>
-            <option>Herencia / Testamento</option>
-            <option>Constitución de empresa</option>
-            <option>Poder notarial</option>
-            <option>Otra consulta</option>
-          </select>
-        </div>
-        <div class="form-group"><textarea placeholder="Cuéntenos su necesidad..."></textarea></div>
-        <button type="submit" class="form-submit">Solicitar cita</button>
-      </form>
-    </div>
-  </div>
-</section>
+    </section>
 
-<footer>
-  <p>&copy; 2024 <span>Notaría Rafael Cervera</span> · San Fernando de Henares, Madrid · Tel: <span>916 74 09 08</span></p>
-</footer>
+    <section class="services" id="servicios">
+      <div class="section-heading">
+        <p class="eyebrow">Servicios notariales</p>
+        <h2>Cuatro bloques para resolver el trabajo frecuente sin perder precisión.</h2>
+      </div>
+      <div class="services-grid">
+        <article>
+          <h3>Escrituras</h3>
+          <p>Operaciones patrimoniales con revisión previa, lectura clara y formalización rigurosa.</p>
+        </article>
+        <article>
+          <h3>Herencias</h3>
+          <p>Testamentos, declaraciones y particiones con una secuencia comprensible para las familias.</p>
+        </article>
+        <article>
+          <h3>Poderes</h3>
+          <p>Representación delimitada con claridad para decisiones personales, familiares o empresariales.</p>
+        </article>
+        <article>
+          <h3>Actas</h3>
+          <p>Documentación notarial preparada con criterio técnico y orden documental visible.</p>
+        </article>
+      </div>
+    </section>
 
+    <section class="office" id="oficina">
+      <div>
+        <p class="eyebrow">La oficina</p>
+        <h2>Una presencia discreta, una mesa clara y un expediente trabajado antes de la firma.</h2>
+      </div>
+      <div class="office-panel">
+        <ul>
+          <li>Revisión documental previa para reducir incidencias en la firma.</li>
+          <li>Atención clara para particulares y operaciones empresariales.</li>
+          <li>Un método de trabajo más cercano a la precisión que al protocolo vacío.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <div>
+        <p class="eyebrow">Contacto</p>
+        <h2>Atención notarial en San Fernando de Henares.</h2>
+        <p>La notaría acompaña actos documentales y patrimoniales con un criterio de trabajo técnico, ordenado y sencillo de seguir desde el primer contacto.</p>
+      </div>
+      <div class="contact-card">
+        <a href="tel:+34916740908">916 74 09 08</a>
+        <p>Notaría Rafael Cervera · San Fernando de Henares</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Notaría Rafael Cervera · San Fernando de Henares</p>
+    <p><a href="tel:+34916740908">916 74 09 08</a></p>
+  </footer>
 </body>
 </html>
