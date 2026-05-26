@@ -195,6 +195,61 @@
       align-items: center;
       justify-content: center;
     }
+
+    .hero-photo-card {
+      position: relative;
+      width: min(100%, 420px);
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(74,144,164,0.18);
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 26px 72px rgba(7, 15, 28, 0.34);
+    }
+
+    .hero-photo-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(13,30,51,0.04) 0%, rgba(13,30,51,0.14) 40%, rgba(13,30,51,0.76) 100%);
+    }
+
+    .hero-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .hero-photo-note {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1;
+      padding: 1.05rem 1.15rem;
+      border-radius: 20px;
+      background: rgba(9,24,42,0.66);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-photo-note strong {
+      display: block;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 0.45rem;
+      line-height: 1.32;
+    }
+
+    .hero-photo-note span {
+      display: block;
+      color: rgba(255,255,255,0.76);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
     .seal-container {
       position: relative;
       width: 320px;
@@ -418,10 +473,11 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
       .hero-layout { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; }
+      .hero-visual { order: -1; display: flex; }
+      .hero-photo-card { width: 100%; max-width: 100%; aspect-ratio: 5 / 4; }
       .hero-text .hero-eyebrow { justify-content: center; }
       .hero-desc { margin: 0 auto 2rem; }
       .hero-actions { justify-content: center; }
-      .hero-visual { display: none; }
       .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .contact-grid { grid-template-columns: 1fr; }
     }
@@ -473,31 +529,12 @@
     </div>
     <!-- SVG decorativo: sello notarial con pluma estilizada -->
     <div class="hero-visual">
-      <div class="seal-container">
-        <div class="seal-ring-outer"></div>
-        <div class="seal-ring-mid"></div>
-        <div class="seal-ring-inner"></div>
-        <!-- Texto circular del sello -->
-        <svg class="seal-text-ring" viewBox="0 0 264 264">
-          <defs>
-            <path id="circle-path" d="M 132,132 m -100,0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0"/>
-          </defs>
-          <text fill="rgba(74,144,164,0.35)" font-size="11" font-family="Inter,sans-serif" letter-spacing="8" font-weight="500" text-transform="uppercase">
-            <textPath href="#circle-path">NOTARÍA · RAFAEL CERVERA · SAN FERNANDO DE HENARES · </textPath>
-          </text>
-        </svg>
-        <!-- Icono pluma central -->
-        <svg class="seal-svg-center" width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <!-- Pluma estilizada -->
-          <path d="M70 15 C82 27 82 58 50 72 L28 86 L22 80 L36 58 C14 58 14 27 26 15 C38 3 62 5 70 15Z"/>
-          <path d="M36 58 L50 44"/>
-          <path d="M22 80 L14 88"/>
-          <!-- Líneas de la pluma -->
-          <path d="M42 40 C48 34 56 28 64 24" stroke-width="1.2" opacity="0.5"/>
-          <path d="M46 46 C52 40 60 34 68 30" stroke-width="1" opacity="0.4"/>
-          <!-- Estrella/sello pequeño -->
-          <path d="M75 75 L77 71 L79 75 L83 75 L80 78 L81 82 L77 80 L73 82 L74 78 L71 75 Z" stroke-width="1" opacity="0.5"/>
-        </svg>
+      <div class="hero-photo-card">
+        <img src="./hero-photo.jpg" alt="Sala de reuniones notarial con atmósfera sobria y profesional" loading="eager" />
+        <div class="hero-photo-note">
+          <strong>Una presencia visual más humana y más institucional a la vez.</strong>
+          <span>El hero gana una fotografía creíble de entorno profesional sin perder el tono sobrio de la notaría.</span>
+        </div>
       </div>
     </div>
   </div>
